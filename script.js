@@ -162,13 +162,17 @@ function startLevel() {
     const layers = Math.min(level, 3);
     for (let z = 0; z < layers; z++) {
         const size = 6 - z;
+        const gapX = window.innerWidth < 500 ? 52 : 58; // Más juntas si la pantalla es pequeña
+        const gapY = window.innerWidth < 500 ? 68 : 75;
         for (let y = 0; y < size; y++) {
             for (let x = 0; x < size; x++) {
                 const el = document.createElement("div");
                 el.className = "tile";
                 const tileObj = { el, symbol: '', x, y, z, active: true, isFree: false };
-                el.style.left = `calc(50% + ${(x - 2.5) * 58}px)`;
-                el.style.top = `calc(50% + ${(y - 2.5) * 75}px)`;
+                //el.style.left = `calc(50% + ${(x - 2.5) * 58}px)`;
+                //el.style.top = `calc(50% + ${(y - 2.5) * 75}px)`;
+                el.style.left = `calc(50% + ${(x - 2.5) * gapX}px)`;
+                el.style.top = `calc(50% + ${(y - 2.5) * gapY}px)`;
                 el.style.zIndex = z;
                 el.onclick = () => handleSelect(tileObj);
                 board.appendChild(el);
