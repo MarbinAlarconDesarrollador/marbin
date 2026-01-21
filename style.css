@@ -8,8 +8,12 @@ body {
     margin: 0;
     font-family: sans-serif;
     background: var(--bg);
-    overflow: hidden;
+    /* Cambiado a flex para distribuir espacio verticalmente */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     touch-action: manipulation;
+    overflow-x: hidden;
 }
 
 header {
@@ -17,7 +21,8 @@ header {
     color: white;
     padding: 10px;
     z-index: 1000;
-    position: relative;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .timer-container {
@@ -33,12 +38,18 @@ header {
     height: 100%;
     background: #2ecc71;
     border-radius: 4px;
+    transition: width 0.1s linear;
 }
 
 .controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.btns {
+    display: flex;
+    gap: 5px;
 }
 
 .btns button {
@@ -49,31 +60,34 @@ header {
     font-size: 20px;
     cursor: pointer;
     background: #fff;
-    margin-left: 5px;
     box-shadow: 0 4px #999;
+    position: relative;
+}
+
+.btns button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #666;
 }
 
 #board {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex: 1;
+    /* Ocupa todo el espacio central */
     width: 100%;
-    max-width: 600px;
-    /* Tamaño máximo para escritorio */
-    height: 70vh;
-    /* Altura basada en la pantalla del celular */
+    max-width: 500px;
     margin: 0 auto;
     perspective: 1000px;
     touch-action: none;
-    /* Evita que el celular haga scroll mientras juegas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .tile {
     position: absolute;
     width: 50px;
     height: 65px;
-    background: #fff;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -81,55 +95,41 @@ header {
     font-size: 28px;
     box-shadow: 0 4px 0 #bbb, 1px 5px 8px rgba(0, 0, 0, 0.3);
     border: 1px solid #ddd;
-    transition: transform 0.1s;
+    transition: transform 0.1s, opacity 0.3s;
     cursor: pointer;
-    z-index: 10;
-    background: linear-gradient(145deg, #ffffff, #f0f0f0);
     font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     font-weight: 900;
     text-shadow: 0.5px 0.5px 0px rgba(0, 0, 0, 0.1);
-
 }
 
-.tile.emoji-warm {
-    color: #f1c40f;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.tile.emoji-cool {
-    color: #3498db;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-
-/* Colores por familia de fichas */
+/* Colores de familias */
 .tile.bambu {
     color: #27ae60;
 }
 
-/* Verde para Bambúes */
 .tile.circulo {
     color: #2980b9;
 }
 
-/* Azul para Círculos */
 .tile.caracter {
     color: #c0392b;
 }
 
-/* Rojo para Caracteres y Dragón Rojo */
 .tile.viento {
     color: #2c3e50;
-}
-
-/* Negro/Gris para Vientos */
-.tile.dragon-verde {
-    color: #27ae60;
 }
 
 .tile.dragon-blanco {
     color: #7f8c8d;
     border: 2px solid #bdc3c7;
+}
+
+.tile.emoji-warm {
+    color: #f1c40f;
+}
+
+.tile.emoji-cool {
+    color: #3498db;
 }
 
 .tile.blocked {
@@ -139,21 +139,21 @@ header {
 
 .tile.selected {
     background: #e3f2fd;
-    border: 3px solid #3498db;
+    border: 2px solid #3498db;
     transform: scale(1.05) translateY(-5px);
     z-index: 100 !important;
 }
 
 .tile.hint-mode {
     outline: 4px solid var(--accent);
-    z-index: 99 !important;
+    z-index: 90 !important;
 }
 
-/* Partículas de explosión */
+/* Partículas */
 .particle {
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     pointer-events: none;
     z-index: 500;
@@ -183,44 +183,17 @@ header {
     border-radius: 10px;
     display: none;
     z-index: 2000;
-    text-align: center;
-}
-
-/* Estilo base para el contenedor de botones si decides usar tooltips personalizados */
-.btns button {
-    position: relative;
-    cursor: pointer;
-}
-
-/* Tooltip nativo mejorado (comportamiento del navegador) */
-.btns button[title]:hover::after {
-    content: attr(title);
-    position: absolute;
-    bottom: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 4px 8px;
-    font-size: 12px;
-    border-radius: 4px;
-    white-space: nowrap;
-    z-index: 1000;
 }
 
 @media (max-width: 500px) {
-    header {
-        padding: 5px;
-    }
-
-    .btns button {
-        padding: 8px 12px;
-        font-size: 18px;
-    }
-
     #board {
-        transform: scale(0.9);
-        /* Encoge todo el tablero un 10% si es necesario */
-        transform-origin: center top;
+        transform: scale(0.95);
+        transform-origin: center;
+    }
+
+    .tile {
+        width: 45px;
+        height: 60px;
+        font-size: 24px;
     }
 }
