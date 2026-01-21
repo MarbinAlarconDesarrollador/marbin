@@ -1,0 +1,202 @@
+:root {
+    --bg: #2c3e50;
+    --header: #1a252f;
+    --accent: #f1c40f;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: var(--bg);
+    overflow: hidden;
+    touch-action: manipulation;
+}
+
+header {
+    background: var(--header);
+    color: white;
+    padding: 10px;
+    z-index: 1000;
+    position: relative;
+}
+
+.timer-container {
+    width: 100%;
+    height: 8px;
+    background: #444;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+#timer-bar {
+    width: 100%;
+    height: 100%;
+    background: #2ecc71;
+    border-radius: 4px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btns button {
+    border: none;
+    border-radius: 8px;
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+    cursor: pointer;
+    background: #fff;
+    margin-left: 5px;
+    box-shadow: 0 4px #999;
+}
+
+#board {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 110px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tile {
+    position: absolute;
+    width: 55px;
+    height: 70px;
+    background: #fff;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 4px 0 #bbb, 1px 5px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid #ddd;
+    transition: transform 0.1s;
+    cursor: pointer;
+    z-index: 10;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-weight: 900;
+    text-shadow: 0.5px 0.5px 0px rgba(0, 0, 0, 0.1);
+
+}
+
+.tile.emoji-warm {
+    color: #f1c40f;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.tile.emoji-cool {
+    color: #3498db;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Colores por familia de fichas */
+.tile.bambu {
+    color: #27ae60;
+}
+
+/* Verde para Bambúes */
+.tile.circulo {
+    color: #2980b9;
+}
+
+/* Azul para Círculos */
+.tile.caracter {
+    color: #c0392b;
+}
+
+/* Rojo para Caracteres y Dragón Rojo */
+.tile.viento {
+    color: #2c3e50;
+}
+
+/* Negro/Gris para Vientos */
+.tile.dragon-verde {
+    color: #27ae60;
+}
+
+.tile.dragon-blanco {
+    color: #7f8c8d;
+    border: 2px solid #bdc3c7;
+}
+
+.tile.blocked {
+    filter: brightness(0.5);
+    cursor: default;
+}
+
+.tile.selected {
+    background: #e3f2fd;
+    border: 3px solid #3498db;
+    transform: scale(1.05) translateY(-5px);
+    z-index: 100 !important;
+}
+
+.tile.hint-mode {
+    outline: 4px solid var(--accent);
+    z-index: 99 !important;
+}
+
+/* Partículas de explosión */
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 500;
+    animation: explode 0.6s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+#toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    display: none;
+    z-index: 2000;
+    text-align: center;
+}
+
+/* Estilo base para el contenedor de botones si decides usar tooltips personalizados */
+.btns button {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Tooltip nativo mejorado (comportamiento del navegador) */
+.btns button[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 1000;
+}
