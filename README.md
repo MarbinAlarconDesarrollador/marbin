@@ -30,3 +30,8 @@ El objetivo es eliminar todas las fichas del tablero:
 - Solo puedes seleccionar fichas que estén "libres" (que no tengan nada encima y tengan al menos un lado izquierdo o derecho despejado).
 - Selecciona dos fichas con el mismo símbolo para eliminarlas.
 - Usa la **Pista (💡)** si te quedas atascado o **Mezclar (🔀)** para barajar las fichas restantes.
+
+  ## 📄 Licencia
+* Este proyecto está bajo la licencia MIT. Siéntete libre de usarlo y mejorarlo.
+
+* Desarrollado con ❤️ por Marbin Alarcón
